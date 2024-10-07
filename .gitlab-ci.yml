@@ -1,0 +1,22 @@
+stages:
+  - build
+  - test
+  - deploy
+
+build:
+  stage: build
+  script:
+    - echo "Building the application"
+    - # Simulação de comando de build
+
+test:
+  stage: test
+  script:
+    - echo "Running tests"
+    - # Simulação de teste
+
+deploy:
+  stage: deploy
+  script:
+    - echo "Deploying the application"
+    - # Comando de deploy manual ou automático
