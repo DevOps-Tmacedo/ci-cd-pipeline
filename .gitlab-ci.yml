@@ -1,22 +1,40 @@
-stages:
+image: docker:latest  # Usando a imagem Docker padrão
+
+stages:               # Definindo as etapas do pipeline
   - build
   - test
   - deploy
 
-build:
+build-job:           # Job para construir o projeto
   stage: build
   script:
-    - echo "Building the application"
-    - # Simulação de comando de build
+    - echo "Construindo o projeto..."  # Simulando a construção
+    - sleep 2  # Pausa para simulação
+    - echo "Projeto construído com sucesso!"
 
-test:
+test-job:            # Job para testar o projeto
   stage: test
   script:
-    - echo "Running tests"
-    - # Simulação de teste
+    - echo "Executando testes..."  # Simulando a execução de testes
+    - sleep 2  # Pausa para simulação
+    - echo "Testes concluídos com sucesso!"
 
-deploy:
+deploy-to-develop:   # Job para implantar manualmente no develop
   stage: deploy
   script:
-    - echo "Deploying the application"
-    - # Comando de deploy manual ou automático
+    - echo "Implantando o projeto em develop..."  # Simulando a implantação
+    - sleep 2  # Pausa para simulação
+    - echo "Implantação em develop concluída com sucesso!"
+  when: manual  # Este job requer acionamento manual
+  only:
+    - develop  # Este job só será executado para o branch develop
+
+deploy-to-main:      # Job para implantar manualmente no main
+  stage: deploy
+  script:
+    - echo "Implantando o projeto em main..."  # Simulando a implantação
+    - sleep 2  # Pausa para simulação
+    - echo "Implantação em main concluída com sucesso!"
+  when: manual  # Este job requer acionamento manual
+  only:
+    - main  # Este job só será executado para o branch main
