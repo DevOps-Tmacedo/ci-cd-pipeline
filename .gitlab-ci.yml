@@ -4,6 +4,7 @@ stages:               # Definindo as etapas do pipeline
   - build
   - test
   - deploy
+  - notify  # Adicionando a etapa de notificação
 
 build-job:           # Job para construir o projeto
   stage: build
@@ -38,3 +39,15 @@ deploy-to-main:      # Job para implantar manualmente no main
   when: manual  # Este job requer acionamento manual
   only:
     - main  # Este job só será executado para o branch main
+
+notify-google-chat:  # Job para enviar notificação ao Google Chat
+  stage: notify
+  script:
+    - echo "Enviando notificação ao Google Chat..."
+    - |
+      curl -X POST -H 'Content-Type: application/json' -d '{
+        "text": "O pipeline foi concluído com sucesso! Veja os detalhes do commit no repositório."
+      }' https://chat.googleapis.com/v1/spaces/AAAA1PPbgYY/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=IS9uU0GTcgpVNPOzom19CWT8KoOc6oR7rRiJT09Hpew
+  only:
+    - develop
+    - main
